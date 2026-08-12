@@ -7,566 +7,576 @@
 <title>DISTYNO — Amazon AU Product Analyzer</title>
 
 <style>
-:root{
-    --bg:#070a0f;
-    --panel:#0e131b;
-    --panel2:#131a24;
-    --panel3:#18212d;
-    --border:#26303d;
-    --text:#f4f7fb;
-    --muted:#8995a6;
-    --green:#57e6a0;
-    --green2:#2fcf87;
-    --yellow:#ffd166;
-    --orange:#ff9f43;
-    --red:#ff6377;
-    --blue:#68a5ff;
-    --shadow:0 25px 80px rgba(0,0,0,.35);
+:root {
+    --bg: #070a0f;
+    --panel: #0e131b;
+    --panel2: #131a24;
+    --panel3: #18212d;
+    --border: #26303d;
+    --text: #f4f7fb;
+    --muted: #8995a6;
+    --green: #57e6a0;
+    --green2: #2fcf87;
+    --yellow: #ffd166;
+    --orange: #ff9f43;
+    --red: #ff6377;
+    --blue: #68a5ff;
+    --shadow: 0 25px 80px rgba(0,0,0,.35);
 }
 
-*{
-    box-sizing:border-box;
+* {
+    box-sizing: border-box;
 }
 
-html{
-    scroll-behavior:smooth;
+html {
+    scroll-behavior: smooth;
 }
 
-body{
-    margin:0;
-    min-height:100vh;
+body {
+    margin: 0;
+    min-height: 100vh;
     background:
-        radial-gradient(circle at 15% 0%,rgba(87,230,160,.09),transparent 28%),
-        radial-gradient(circle at 90% 10%,rgba(104,165,255,.08),transparent 28%),
+        radial-gradient(circle at 15% 0%, rgba(87,230,160,.09), transparent 28%),
+        radial-gradient(circle at 90% 10%, rgba(104,165,255,.08), transparent 28%),
         var(--bg);
-    color:var(--text);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Arial, sans-serif;
 }
 
-body:before{
-    content:"";
-    position:fixed;
-    inset:0;
-    pointer-events:none;
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
     background:
-        linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);
-    background-size:40px 40px;
-    mask-image:linear-gradient(to bottom,black,transparent 80%);
+        linear-gradient(rgba(255,255,255,.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.015) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: linear-gradient(to bottom, black, transparent 80%);
 }
 
-.container{
-    width:min(1180px,94%);
-    margin:auto;
-    padding:34px 0 70px;
+.container {
+    width: min(1180px, 94%);
+    margin: auto;
+    padding: 34px 0 70px;
 }
 
-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:28px;
-    animation:fadeDown .6s ease;
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+    animation: fadeDown .6s ease;
 }
 
-.brand{
-    font-size:31px;
-    font-weight:1000;
-    letter-spacing:4px;
+.brand {
+    font-size: 31px;
+    font-weight: 1000;
+    letter-spacing: 4px;
 }
 
-.brand span{
-    color:var(--green);
+.brand span {
+    color: var(--green);
 }
 
-.subtitle{
-    color:var(--muted);
-    margin-top:5px;
-    font-size:13px;
+.subtitle {
+    color: var(--muted);
+    margin-top: 5px;
+    font-size: 13px;
 }
 
-.market{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    padding:9px 13px;
-    border:1px solid var(--border);
-    border-radius:999px;
-    background:rgba(14,19,27,.8);
-    color:var(--muted);
-    font-size:11px;
-    font-weight:800;
+.market {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 13px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: rgba(14,19,27,.8);
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 800;
 }
 
-.dot{
-    width:7px;
-    height:7px;
-    background:var(--green);
-    border-radius:50%;
-    box-shadow:0 0 12px var(--green);
+.dot {
+    width: 7px;
+    height: 7px;
+    background: var(--green);
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--green);
 }
 
-.main{
-    display:grid;
-    grid-template-columns:420px 1fr;
-    gap:20px;
+.main {
+    display: grid;
+    grid-template-columns: 420px 1fr;
+    gap: 20px;
 }
 
-.card{
-    background:rgba(14,19,27,.92);
-    border:1px solid var(--border);
-    border-radius:20px;
-    box-shadow:var(--shadow);
-    backdrop-filter:blur(16px);
-    animation:fadeUp .65s ease both;
+.card {
+    background: rgba(14,19,27,.92);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(16px);
+    animation: fadeUp .65s ease both;
 }
 
 .inputs,
-.results{
-    padding:23px;
+.results {
+    padding: 23px;
 }
 
-.title{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:19px;
+.title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 19px;
 }
 
-.title h2{
-    margin:0;
-    font-size:15px;
+.title h2 {
+    margin: 0;
+    font-size: 15px;
 }
 
-.title span{
-    color:var(--muted);
-    font-size:10px;
-    font-weight:700;
+.title span {
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 700;
 }
 
-label{
-    display:block;
-    color:var(--muted);
-    font-size:10px;
-    font-weight:800;
-    text-transform:uppercase;
-    letter-spacing:.6px;
-    margin-bottom:7px;
+label {
+    display: block;
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .6px;
+    margin-bottom: 7px;
 }
 
-.field{
-    margin-bottom:14px;
+.field {
+    margin-bottom: 14px;
 }
 
-input{
-    width:100%;
-    border:1px solid var(--border);
-    background:#090e15;
-    color:var(--text);
-    border-radius:11px;
-    padding:13px;
-    outline:none;
-    font-size:13px;
-    transition:.2s;
+input {
+    width: 100%;
+    border: 1px solid var(--border);
+    background: #090e15;
+    color: var(--text);
+    border-radius: 11px;
+    padding: 13px;
+    outline: none;
+    font-size: 13px;
+    transition: .2s;
 }
 
-input:hover{
-    border-color:#354152;
+input:hover {
+    border-color: #354152;
 }
 
-input:focus{
-    border-color:var(--green);
-    box-shadow:0 0 0 3px rgba(87,230,160,.08);
-    transform:translateY(-1px);
+input:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(87,230,160,.08);
+    transform: translateY(-1px);
 }
 
-.input-row{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
+.input-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
 }
 
-.dimensions{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:8px;
+.dimensions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
 }
 
-.fulfilment{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:8px;
+.fulfilment {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
 }
 
-.fulfilment button{
-    border:1px solid var(--border);
-    background:#090e15;
-    color:var(--muted);
-    border-radius:11px;
-    padding:12px;
-    font-weight:900;
-    cursor:pointer;
-    transition:.2s;
+.fulfilment button {
+    border: 1px solid var(--border);
+    background: #090e15;
+    color: var(--muted);
+    border-radius: 11px;
+    padding: 12px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: .2s;
 }
 
-.fulfilment button:hover{
-    border-color:#3b4859;
-    transform:translateY(-1px);
+.fulfilment button:hover {
+    border-color: #3b4859;
+    transform: translateY(-1px);
 }
 
-.fulfilment button.active{
-    color:#06130c;
-    background:var(--green);
-    border-color:var(--green);
-    box-shadow:0 8px 25px rgba(87,230,160,.15);
+.fulfilment button.active {
+    color: #06130c;
+    background: var(--green);
+    border-color: var(--green);
+    box-shadow: 0 8px 25px rgba(87,230,160,.15);
 }
 
-.hint{
-    color:#657184;
-    font-size:10px;
-    margin-top:6px;
-    line-height:1.45;
+.hint {
+    color: #657184;
+    font-size: 10px;
+    margin-top: 6px;
+    line-height: 1.45;
 }
 
-.actions{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:9px;
-    margin-top:20px;
+.actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+    margin-top: 20px;
 }
 
-button{
-    font-family:inherit;
+button {
+    font-family: inherit;
 }
 
-.calculate{
-    border:0;
-    border-radius:11px;
-    background:var(--green);
-    color:#06130c;
-    padding:14px;
-    font-weight:1000;
-    cursor:pointer;
-    transition:.2s;
+.calculate {
+    border: 0;
+    border-radius: 11px;
+    background: var(--green);
+    color: #06130c;
+    padding: 14px;
+    font-weight: 1000;
+    cursor: pointer;
+    transition: .2s;
 }
 
-.calculate:hover{
-    transform:translateY(-2px);
-    box-shadow:0 12px 30px rgba(87,230,160,.18);
+.calculate:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(87,230,160,.18);
 }
 
-.save{
-    border:1px solid rgba(87,230,160,.3);
-    border-radius:11px;
-    background:rgba(87,230,160,.06);
-    color:var(--green);
-    padding:14px;
-    font-weight:1000;
-    cursor:pointer;
-    transition:.2s;
+.save {
+    border: 1px solid rgba(87,230,160,.3);
+    border-radius: 11px;
+    background: rgba(87,230,160,.06);
+    color: var(--green);
+    padding: 14px;
+    font-weight: 1000;
+    cursor: pointer;
+    transition: .2s;
 }
 
-.save:hover{
-    background:rgba(87,230,160,.12);
-    transform:translateY(-2px);
+.save:hover {
+    background: rgba(87,230,160,.12);
+    transform: translateY(-2px);
 }
 
-.reset{
-    width:100%;
-    border:1px solid var(--border);
-    background:transparent;
-    color:var(--muted);
-    border-radius:11px;
-    padding:11px;
-    margin-top:9px;
-    cursor:pointer;
+.reset {
+    width: 100%;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    border-radius: 11px;
+    padding: 11px;
+    margin-top: 9px;
+    cursor: pointer;
 }
 
-.save-status{
-    text-align:center;
-    min-height:17px;
-    margin-top:10px;
-    font-size:11px;
-    font-weight:800;
+.save-status {
+    text-align: center;
+    min-height: 17px;
+    margin-top: 10px;
+    font-size: 11px;
+    font-weight: 800;
 }
 
-.success{
-    color:var(--green);
+.success {
+    color: var(--green);
 }
 
-.error{
-    color:var(--red);
+.error {
+    color: var(--red);
 }
 
-.hero{
-    position:relative;
-    overflow:hidden;
-    text-align:center;
-    padding:27px 20px;
-    border-radius:17px;
-    border:1px solid rgba(87,230,160,.2);
+.hero {
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    padding: 27px 20px;
+    border-radius: 17px;
+    border: 1px solid rgba(87,230,160,.2);
     background:
-        radial-gradient(circle at 50% 0%,rgba(87,230,160,.13),transparent 65%),
+        radial-gradient(circle at 50% 0%, rgba(87,230,160,.13), transparent 65%),
         var(--panel2);
-    margin-bottom:12px;
+    margin-bottom: 12px;
 }
 
-.hero:after{
-    content:"";
-    position:absolute;
-    width:180px;
-    height:180px;
-    border-radius:50%;
-    background:rgba(87,230,160,.04);
-    filter:blur(25px);
-    top:-100px;
-    right:-50px;
+.hero::after {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: rgba(87,230,160,.04);
+    filter: blur(25px);
+    top: -100px;
+    right: -50px;
 }
 
-.hero-label{
-    color:var(--muted);
-    font-size:10px;
-    font-weight:900;
-    text-transform:uppercase;
-    letter-spacing:1.3px;
+.hero-label {
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1.3px;
 }
 
-.profit{
-    font-size:48px;
-    line-height:1;
-    margin:9px 0 5px;
-    color:var(--green);
-    font-weight:1000;
-    letter-spacing:-2px;
-    transition:.3s;
+.profit {
+    font-size: 48px;
+    line-height: 1;
+    margin: 9px 0 5px;
+    color: var(--green);
+    font-weight: 1000;
+    letter-spacing: -2px;
+    transition: .3s;
 }
 
-.profit.negative{
-    color:var(--red);
+.profit.negative {
+    color: var(--red);
 }
 
-.per-unit{
-    color:var(--muted);
-    font-size:10px;
+.per-unit {
+    color: var(--muted);
+    font-size: 10px;
 }
 
-.stats{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:9px;
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 9px;
 }
 
-.stat{
-    padding:16px;
-    border-radius:13px;
-    border:1px solid var(--border);
-    background:var(--panel2);
-    transition:.2s;
+.stat {
+    padding: 16px;
+    border-radius: 13px;
+    border: 1px solid var(--border);
+    background: var(--panel2);
+    transition: .2s;
 }
 
-.stat:hover{
-    transform:translateY(-2px);
-    border-color:#344052;
+.stat:hover {
+    transform: translateY(-2px);
+    border-color: #344052;
 }
 
-.stat-label{
-    color:var(--muted);
-    font-size:9px;
-    font-weight:900;
-    letter-spacing:.6px;
+.stat-label {
+    color: var(--muted);
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: .6px;
 }
 
-.stat-value{
-    font-size:21px;
-    font-weight:1000;
-    margin-top:6px;
+.stat-value {
+    font-size: 21px;
+    font-weight: 1000;
+    margin-top: 6px;
 }
 
-.green{
-    color:var(--green);
+.green {
+    color: var(--green);
 }
 
-.yellow{
-    color:var(--yellow);
+.yellow {
+    color: var(--yellow);
 }
 
-.orange{
-    color:var(--orange);
+.orange {
+    color: var(--orange);
 }
 
-.red{
-    color:var(--red);
+.red {
+    color: var(--red);
 }
 
-.score{
-    margin-top:12px;
-    text-align:center;
-    padding:20px;
-    border-radius:15px;
-    background:var(--panel2);
-    border:1px solid var(--border);
-    transition:.3s;
+.score {
+    margin-top: 12px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 15px;
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    transition: .3s;
 }
 
-.score-label{
-    color:var(--muted);
-    font-size:10px;
-    text-transform:uppercase;
-    font-weight:900;
-    letter-spacing:1px;
+.score-label {
+    color: var(--muted);
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: 900;
+    letter-spacing: 1px;
 }
 
-.score-number{
-    font-size:43px;
-    font-weight:1000;
-    margin:4px 0 7px;
+.score-number {
+    font-size: 43px;
+    font-weight: 1000;
+    margin: 4px 0 7px;
 }
 
-.decision{
-    display:inline-block;
-    padding:7px 14px;
-    border-radius:999px;
-    font-size:10px;
-    font-weight:1000;
-    letter-spacing:.5px;
+.decision {
+    display: inline-block;
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 1000;
+    letter-spacing: .5px;
 }
 
-.decision-green{
-    background:rgba(87,230,160,.1);
-    color:var(--green);
+.decision-green {
+    background: rgba(87,230,160,.1);
+    color: var(--green);
 }
 
-.decision-yellow{
-    background:rgba(255,209,102,.1);
-    color:var(--yellow);
+.decision-yellow {
+    background: rgba(255,209,102,.1);
+    color: var(--yellow);
 }
 
-.decision-orange{
-    background:rgba(255,159,67,.1);
-    color:var(--orange);
+.decision-orange {
+    background: rgba(255,159,67,.1);
+    color: var(--orange);
 }
 
-.decision-red{
-    background:rgba(255,99,119,.1);
-    color:var(--red);
+.decision-red {
+    background: rgba(255,99,119,.1);
+    color: var(--red);
 }
 
-.breakdown{
-    margin-top:13px;
-    border:1px solid var(--border);
-    border-radius:14px;
-    overflow:hidden;
+.breakdown {
+    margin-top: 13px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
 }
 
-.breakdown-header{
-    padding:12px 14px;
-    background:var(--panel2);
-    font-size:10px;
-    font-weight:900;
-    color:var(--muted);
-    text-transform:uppercase;
-    letter-spacing:.7px;
+.breakdown-header {
+    padding: 12px 14px;
+    background: var(--panel2);
+    font-size: 10px;
+    font-weight: 900;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .7px;
 }
 
-.row{
-    display:flex;
-    justify-content:space-between;
-    padding:9px 14px;
-    border-top:1px solid rgba(255,255,255,.035);
-    font-size:11px;
+.row {
+    display: flex;
+    justify-content: space-between;
+    padding: 9px 14px;
+    border-top: 1px solid rgba(255,255,255,.035);
+    font-size: 11px;
 }
 
-.row span{
-    color:var(--muted);
+.row span {
+    color: var(--muted);
 }
 
-.row strong{
-    font-weight:850;
+.row strong {
+    font-weight: 850;
 }
 
-.auto-box{
-    margin-top:13px;
-    padding:12px;
-    border:1px solid rgba(104,165,255,.15);
-    background:rgba(104,165,255,.04);
-    border-radius:12px;
-    font-size:10px;
-    color:var(--muted);
-    line-height:1.5;
+.auto-box {
+    margin-top: 13px;
+    padding: 12px;
+    border: 1px solid rgba(104,165,255,.15);
+    background: rgba(104,165,255,.04);
+    border-radius: 12px;
+    font-size: 10px;
+    color: var(--muted);
+    line-height: 1.5;
 }
 
-.auto-box strong{
-    color:#b5cced;
+.auto-box strong {
+    color: #b5cced;
 }
 
-footer{
-    text-align:center;
-    margin-top:28px;
-    color:#4e5969;
-    font-size:9px;
-    letter-spacing:.6px;
+footer {
+    text-align: center;
+    margin-top: 28px;
+    color: #4e5969;
+    font-size: 9px;
+    letter-spacing: .6px;
 }
 
-.pulse{
-    animation:pulse .35s ease;
+.pulse {
+    animation: pulse .35s ease;
 }
 
-@keyframes fadeUp{
-    from{
-        opacity:0;
-        transform:translateY(16px);
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
     }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
 
-@keyframes fadeDown{
-    from{
-        opacity:0;
-        transform:translateY(-10px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
-@keyframes pulse{
-    0%{transform:scale(.98)}
-    60%{transform:scale(1.015)}
-    100%{transform:scale(1)}
-}
+@keyframes fadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
 
-@media(max-width:900px){
-    .main{
-        grid-template-columns:1fr;
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
-@media(max-width:600px){
-    .container{
-        width:92%;
-        padding-top:20px;
+@keyframes pulse {
+    0% {
+        transform: scale(.98);
     }
 
-    header{
-        align-items:flex-start;
-        flex-direction:column;
-        gap:12px;
+    60% {
+        transform: scale(1.015);
     }
 
-    .stats{
-        grid-template-columns:1fr;
+    100% {
+        transform: scale(1);
+    }
+}
+
+@media (max-width: 900px) {
+    .main {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        width: 92%;
+        padding-top: 20px;
     }
 
-    .actions{
-        grid-template-columns:1fr;
+    header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
     }
 
-    .profit{
-        font-size:40px;
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .actions {
+        grid-template-columns: 1fr;
+    }
+
+    .profit {
+        font-size: 40px;
     }
 }
 </style>
@@ -596,6 +606,7 @@ footer{
 
 <section class="card inputs">
 
+```
 <div class="title">
     <h2>Product Details</h2>
     <span>URLS + 5 REQUIRED</span>
@@ -604,188 +615,169 @@ footer{
 <div class="field">
     <label>ASIN</label>
 
-```
-<input
-    id="asin"
-    placeholder="B00IHXQ3OE"
->
+    <input
+        id="asin"
+        placeholder="B00IHXQ3OE"
+    >
 
-<div class="hint">
-    Used to identify the product and automatically create the Amazon AU listing URL.
-</div>
-```
-
+    <div class="hint">
+        Used to identify the product and automatically create the Amazon AU listing URL.
+    </div>
 </div>
 
 <div class="field">
     <label>Seller URL</label>
 
-```
-<input
-    id="sellerUrl"
-    type="url"
-    placeholder="https://example.com/product"
->
+    <input
+        id="sellerUrl"
+        type="url"
+        placeholder="https://example.com/product"
+    >
 
-<div class="hint">
-    Paste the supplier or seller product URL. It will be saved as a clickable link in Google Sheets.
-</div>
-```
-
+    <div class="hint">
+        Paste the supplier or seller product URL. It will be saved as a clickable link in Google Sheets.
+    </div>
 </div>
 
 <div class="input-row">
 
-```
+    <div class="field">
+        <label>Amazon Price ($)</label>
+
+        <input
+            id="salePrice"
+            type="number"
+            step="0.01"
+            placeholder="79.95"
+        >
+    </div>
+
+    <div class="field">
+        <label>Supplier Cost ($)</label>
+
+        <input
+            id="buyCost"
+            type="number"
+            step="0.01"
+            placeholder="35.00"
+        >
+    </div>
+
+</div>
+
 <div class="field">
-    <label>Amazon Price ($)</label>
+
+    <label>Fulfilment</label>
+
+    <div class="fulfilment">
+
+        <button
+            id="fbaButton"
+            class="active"
+            onclick="setFulfilment('FBA')"
+        >
+            FBA
+        </button>
+
+        <button
+            id="fbmButton"
+            onclick="setFulfilment('FBM')"
+        >
+            FBM
+        </button>
+
+    </div>
+
+    <div class="hint">
+        DISTYNO automatically estimates fulfilment/shipping based on weight and dimensions.
+    </div>
+
+</div>
+
+<div class="field">
+
+    <label>Weight (kg)</label>
 
     <input
-        id="salePrice"
+        id="weight"
         type="number"
         step="0.01"
-        placeholder="79.95"
+        placeholder="0.50"
     >
-</div>
-
-<div class="field">
-    <label>Supplier Cost ($)</label>
-
-    <input
-        id="buyCost"
-        type="number"
-        step="0.01"
-        placeholder="35.00"
-    >
-</div>
-```
 
 </div>
 
 <div class="field">
 
-```
-<label>Fulfilment</label>
+    <label>Dimensions (cm)</label>
 
-<div class="fulfilment">
+    <div class="dimensions">
 
-    <button
-        id="fbaButton"
-        class="active"
-        onclick="setFulfilment('FBA')"
-    >
-        FBA
-    </button>
+        <input
+            id="length"
+            type="number"
+            step="0.1"
+            placeholder="Length"
+        >
 
-    <button
-        id="fbmButton"
-        onclick="setFulfilment('FBM')"
-    >
-        FBM
-    </button>
+        <input
+            id="width"
+            type="number"
+            step="0.1"
+            placeholder="Width"
+        >
 
-</div>
+        <input
+            id="height"
+            type="number"
+            step="0.1"
+            placeholder="Height"
+        >
 
-<div class="hint">
-    DISTYNO automatically estimates fulfilment/shipping based on weight and dimensions.
-</div>
-```
+    </div>
 
-</div>
-
-<div class="field">
-
-```
-<label>Weight (kg)</label>
-
-<input
-    id="weight"
-    type="number"
-    step="0.01"
-    placeholder="0.50"
->
-```
-
-</div>
-
-<div class="field">
-
-```
-<label>Dimensions (cm)</label>
-
-<div class="dimensions">
-
-    <input
-        id="length"
-        type="number"
-        step="0.1"
-        placeholder="Length"
-    >
-
-    <input
-        id="width"
-        type="number"
-        step="0.1"
-        placeholder="Width"
-    >
-
-    <input
-        id="height"
-        type="number"
-        step="0.1"
-        placeholder="Height"
-    >
-
-</div>
-
-<div class="hint">
-    Dimensions automatically affect the estimated fulfilment/shipping cost.
-</div>
-```
+    <div class="hint">
+        Dimensions automatically affect the estimated fulfilment/shipping cost.
+    </div>
 
 </div>
 
 <div class="actions">
 
-```
-<button
-    class="calculate"
-    onclick="calculate()"
->
-    CALCULATE
-</button>
+    <button
+        class="calculate"
+        onclick="calculate()"
+    >
+        CALCULATE
+    </button>
 
-<button
-    class="save"
-    onclick="saveToGoogleSheets()"
->
-    SAVE PRODUCT
-</button>
-```
+    <button
+        class="save"
+        onclick="saveToGoogleSheets()"
+    >
+        SAVE PRODUCT
+    </button>
 
 </div>
 
 <button
-class="reset"
-onclick="resetCalculator()"
-
+    class="reset"
+    onclick="resetCalculator()"
 >
-
-```
-Reset
-```
-
+    Reset
 </button>
 
 <div
     id="saveStatus"
     class="save-status"
 ></div>
+```
 
 </section>
 
 <section class="card results">
 
+```
 <div class="title">
     <h2>Investment Analysis</h2>
     <span>AUTOMATIC ESTIMATE</span>
@@ -793,149 +785,145 @@ Reset
 
 <div class="hero">
 
-```
-<div class="hero-label">
-    Estimated Net Profit
-</div>
+    <div class="hero-label">
+        Estimated Net Profit
+    </div>
 
-<div
-    id="profit"
-    class="profit"
->
-    $0.00
-</div>
+    <div
+        id="profit"
+        class="profit"
+    >
+        $0.00
+    </div>
 
-<div class="per-unit">
-    per unit after estimated costs
-</div>
-```
+    <div class="per-unit">
+        per unit after estimated costs
+    </div>
 
 </div>
 
 <div class="stats">
 
-```
-<div class="stat">
+    <div class="stat">
 
-    <div class="stat-label">
-        ROI
+        <div class="stat-label">
+            ROI
+        </div>
+
+        <div
+            id="roi"
+            class="stat-value green"
+        >
+            0%
+        </div>
+
     </div>
 
-    <div
-        id="roi"
-        class="stat-value green"
-    >
-        0%
+    <div class="stat">
+
+        <div class="stat-label">
+            MARGIN
+        </div>
+
+        <div
+            id="margin"
+            class="stat-value"
+        >
+            0%
+        </div>
+
     </div>
 
-</div>
+    <div class="stat">
 
-<div class="stat">
+        <div class="stat-label">
+            EST. AMAZON FEES
+        </div>
 
-    <div class="stat-label">
-        MARGIN
+        <div
+            id="amazonFees"
+            class="stat-value"
+        >
+            $0.00
+        </div>
+
     </div>
-
-    <div
-        id="margin"
-        class="stat-value"
-    >
-        0%
-    </div>
-
-</div>
-
-<div class="stat">
-
-    <div class="stat-label">
-        EST. AMAZON FEES
-    </div>
-
-    <div
-        id="amazonFees"
-        class="stat-value"
-    >
-        $0.00
-    </div>
-
-</div>
-```
 
 </div>
 
 <div class="score">
 
-```
-<div class="score-label">
-    DISTYNO Opportunity Score
-</div>
+    <div class="score-label">
+        DISTYNO Opportunity Score
+    </div>
 
-<div
-    id="score"
-    class="score-number"
->
-    0%
-</div>
+    <div
+        id="score"
+        class="score-number"
+    >
+        0%
+    </div>
 
-<div
-    id="decision"
-    class="decision decision-yellow"
->
-    ENTER PRODUCT DATA
-</div>
-```
+    <div
+        id="decision"
+        class="decision decision-yellow"
+    >
+        ENTER PRODUCT DATA
+    </div>
 
 </div>
 
 <div class="breakdown">
 
-```
-<div class="breakdown-header">
-    Automatic Cost Breakdown
-</div>
+    <div class="breakdown-header">
+        Automatic Cost Breakdown
+    </div>
 
-<div class="row">
-    <span>Amazon Sale Price</span>
-    <strong id="rSalePrice">$0.00</strong>
-</div>
+    <div class="row">
+        <span>Amazon Sale Price</span>
+        <strong id="rSalePrice">$0.00</strong>
+    </div>
 
-<div class="row">
-    <span>Supplier Cost</span>
-    <strong id="rBuyCost">$0.00</strong>
-</div>
+    <div class="row">
+        <span>Supplier Cost</span>
+        <strong id="rBuyCost">$0.00</strong>
+    </div>
 
-<div class="row">
-    <span>Estimated Referral Fee</span>
-    <strong id="rReferral">$0.00</strong>
-</div>
+    <div class="row">
+        <span>Estimated Referral Fee</span>
+        <strong id="rReferral">$0.00</strong>
+    </div>
 
-<div class="row">
-    <span>Estimated Fulfilment / Shipping</span>
-    <strong id="rFulfilment">$0.00</strong>
-</div>
+    <div class="row">
+        <span>Estimated Fulfilment / Shipping</span>
+        <strong id="rFulfilment">$0.00</strong>
+    </div>
 
-<div class="row">
-    <span>Estimated Inbound</span>
-    <strong id="rInbound">$0.00</strong>
-</div>
+    <div class="row">
+        <span>Estimated Inbound</span>
+        <strong id="rInbound">$0.00</strong>
+    </div>
 
-<div class="row">
-    <span>Estimated Total Cost</span>
-    <strong id="rTotal">$0.00</strong>
-</div>
-```
+    <div class="row">
+        <span>Estimated Total Cost</span>
+        <strong id="rTotal">$0.00</strong>
+    </div>
 
 </div>
 
 <div class="auto-box">
+
     <strong>Automatic estimates:</strong>
+
     DISTYNO estimates Amazon referral fees,
     fulfilment/shipping and other costs using
     the product's price, weight and dimensions.
     These figures are intended for investment
     screening and should be verified before
     purchasing stock.
+
 </div>
+```
 
 </section>
 
@@ -953,12 +941,8 @@ Reset
    GOOGLE SHEETS
 ================================================== */
 
-/*
-   IMPORTANT:
-   This is your NEW Google Apps Script deployment.
-*/
 const GOOGLE_SCRIPT_URL =
-"https://script.google.com/macros/s/AKfycbyl6PFWAMjv-jFYE6U4X8vYKV575DKryindyOZZfMMB-q4Zta3Nxj04qw-8JkAyUWo6ww/exec";
+    "https://script.google.com/macros/s/AKfycbyl6PFWAMjv-jFYE6U4X8vYKV575DKryindyOZZfMMB-q4Zta3Nxj04qw-8JkAyUWo6ww/exec";
 
 
 /* ==================================================
@@ -972,29 +956,23 @@ let currentFulfilment = "FBA";
    HELPERS
 ================================================== */
 
-function num(id){
+function num(id) {
 
-    const value =
-        parseFloat(
-            document.getElementById(id).value
-        );
+    const value = parseFloat(
+        document.getElementById(id).value
+    );
 
     return Number.isFinite(value) ? value : 0;
-
 }
 
 
-function money(value){
-
+function money(value) {
     return "$" + value.toFixed(2);
-
 }
 
 
-function setText(id,value){
-
+function setText(id, value) {
     document.getElementById(id).textContent = value;
-
 }
 
 
@@ -1002,28 +980,21 @@ function setText(id,value){
    FULFILMENT
 ================================================== */
 
-function setFulfilment(type){
+function setFulfilment(type) {
 
     currentFulfilment = type;
 
     document
         .getElementById("fbaButton")
         .classList
-        .toggle(
-            "active",
-            type === "FBA"
-        );
+        .toggle("active", type === "FBA");
 
     document
         .getElementById("fbmButton")
         .classList
-        .toggle(
-            "active",
-            type === "FBM"
-        );
+        .toggle("active", type === "FBM");
 
     calculate();
-
 }
 
 
@@ -1031,17 +1002,13 @@ function setFulfilment(type){
    DIMENSIONAL WEIGHT
 ================================================== */
 
-function dimensionalWeight(
-    length,
-    width,
-    height
-){
+function dimensionalWeight(length, width, height) {
 
-    if(
+    if (
         length <= 0 ||
         width <= 0 ||
         height <= 0
-    ){
+    ) {
         return 0;
     }
 
@@ -1050,7 +1017,6 @@ function dimensionalWeight(
         width *
         height
     ) / 5000;
-
 }
 
 
@@ -1058,23 +1024,17 @@ function dimensionalWeight(
    CHARGEABLE WEIGHT
 ================================================== */
 
-function chargeableWeight(){
+function chargeableWeight() {
 
-    const actual =
-        num("weight");
+    const actual = num("weight");
 
-    const dimensional =
-        dimensionalWeight(
-            num("length"),
-            num("width"),
-            num("height")
-        );
-
-    return Math.max(
-        actual,
-        dimensional
+    const dimensional = dimensionalWeight(
+        num("length"),
+        num("width"),
+        num("height")
     );
 
+    return Math.max(actual, dimensional);
 }
 
 
@@ -1082,70 +1042,53 @@ function chargeableWeight(){
    ESTIMATED FBA FEE
 ================================================== */
 
-function estimateFBA(){
+function estimateFBA() {
 
-    const weight =
-        chargeableWeight();
+    const weight = chargeableWeight();
 
-    const length =
-        num("length");
-
-    const width =
-        num("width");
-
-    const height =
-        num("height");
+    const length = num("length");
+    const width = num("width");
+    const height = num("height");
 
     let fee;
 
-    if(weight <= 0.25){
+    if (weight <= 0.25) {
         fee = 7.30;
-    }
-    else if(weight <= 0.5){
+    } else if (weight <= 0.5) {
         fee = 7.70;
-    }
-    else if(weight <= 1){
+    } else if (weight <= 1) {
         fee = 8.90;
-    }
-    else if(weight <= 1.5){
+    } else if (weight <= 1.5) {
         fee = 9.60;
-    }
-    else if(weight <= 2){
+    } else if (weight <= 2) {
         fee = 10.20;
-    }
-    else if(weight <= 3){
+    } else if (weight <= 3) {
         fee = 11.00;
-    }
-    else if(weight <= 5){
+    } else if (weight <= 5) {
         fee = 12.50;
-    }
-    else if(weight <= 8){
+    } else if (weight <= 8) {
         fee = 15.00;
-    }
-    else if(weight <= 10){
+    } else if (weight <= 10) {
         fee = 18.00;
-    }
-    else{
+    } else {
         fee = 24.00;
     }
 
-    const largestSide =
-        Math.max(
-            length,
-            width,
-            height
-        );
+    const largestSide = Math.max(
+        length,
+        width,
+        height
+    );
 
-    if(largestSide > 45){
+    if (largestSide > 45) {
         fee += 3;
     }
 
-    if(largestSide > 60){
+    if (largestSide > 60) {
         fee += 5;
     }
 
     return fee;
-
 }
 
 
@@ -1153,40 +1096,31 @@ function estimateFBA(){
    ESTIMATED FBM SHIPPING
 ================================================== */
 
-function estimateFBMShipping(){
+function estimateFBMShipping() {
 
-    const weight =
-        chargeableWeight();
+    const weight = chargeableWeight();
 
     let shipping;
 
-    if(weight <= 0.25){
+    if (weight <= 0.25) {
         shipping = 5.50;
-    }
-    else if(weight <= 0.5){
+    } else if (weight <= 0.5) {
         shipping = 7.00;
-    }
-    else if(weight <= 1){
+    } else if (weight <= 1) {
         shipping = 8.50;
-    }
-    else if(weight <= 2){
+    } else if (weight <= 2) {
         shipping = 10.00;
-    }
-    else if(weight <= 3){
+    } else if (weight <= 3) {
         shipping = 12.00;
-    }
-    else if(weight <= 5){
+    } else if (weight <= 5) {
         shipping = 15.00;
-    }
-    else if(weight <= 10){
+    } else if (weight <= 10) {
         shipping = 22.00;
-    }
-    else{
+    } else {
         shipping = 30.00;
     }
 
     return shipping;
-
 }
 
 
@@ -1194,10 +1128,8 @@ function estimateFBMShipping(){
    REFERRAL FEE
 ================================================== */
 
-function estimateReferralFee(price){
-
+function estimateReferralFee(price) {
     return price * 0.15;
-
 }
 
 
@@ -1210,83 +1142,65 @@ function calculateScore(
     roi,
     margin,
     weight
-){
+) {
 
     let roiPoints = 0;
 
-    if(roi >= 100)
+    if (roi >= 100)
         roiPoints = 45;
-
-    else if(roi >= 75)
+    else if (roi >= 75)
         roiPoints = 42;
-
-    else if(roi >= 50)
+    else if (roi >= 50)
         roiPoints = 38;
-
-    else if(roi >= 40)
+    else if (roi >= 40)
         roiPoints = 34;
-
-    else if(roi >= 30)
+    else if (roi >= 30)
         roiPoints = 28;
-
-    else if(roi >= 20)
+    else if (roi >= 20)
         roiPoints = 20;
-
-    else if(roi >= 10)
+    else if (roi >= 10)
         roiPoints = 10;
 
 
     let profitPoints = 0;
 
-    if(profit >= 20)
+    if (profit >= 20)
         profitPoints = 30;
-
-    else if(profit >= 15)
+    else if (profit >= 15)
         profitPoints = 27;
-
-    else if(profit >= 10)
+    else if (profit >= 10)
         profitPoints = 23;
-
-    else if(profit >= 7)
+    else if (profit >= 7)
         profitPoints = 19;
-
-    else if(profit >= 5)
+    else if (profit >= 5)
         profitPoints = 15;
-
-    else if(profit >= 3)
+    else if (profit >= 3)
         profitPoints = 8;
 
 
     let marginPoints = 0;
 
-    if(margin >= 35)
+    if (margin >= 35)
         marginPoints = 20;
-
-    else if(margin >= 30)
+    else if (margin >= 30)
         marginPoints = 18;
-
-    else if(margin >= 25)
+    else if (margin >= 25)
         marginPoints = 16;
-
-    else if(margin >= 20)
+    else if (margin >= 20)
         marginPoints = 13;
-
-    else if(margin >= 15)
+    else if (margin >= 15)
         marginPoints = 9;
-
-    else if(margin >= 10)
+    else if (margin >= 10)
         marginPoints = 5;
 
 
     let sizePoints = 5;
 
-    if(weight > 10)
+    if (weight > 10)
         sizePoints = 0;
-
-    else if(weight > 5)
+    else if (weight > 5)
         sizePoints = 2;
-
-    else if(weight > 2)
+    else if (weight > 2)
         sizePoints = 3;
 
 
@@ -1302,7 +1216,6 @@ function calculateScore(
             )
         )
     );
-
 }
 
 
@@ -1310,49 +1223,40 @@ function calculateScore(
    DECISION
 ================================================== */
 
-function getDecision(score){
+function getDecision(score) {
 
-    if(score >= 75){
-
+    if (score >= 75) {
         return {
-            text:"🟢 STRONG BUY CANDIDATE",
-            className:"decision-green"
+            text: "🟢 STRONG BUY CANDIDATE",
+            className: "decision-green"
         };
-
     }
 
-    if(score >= 60){
-
+    if (score >= 60) {
         return {
-            text:"🟢 LOOK INTO THIS",
-            className:"decision-green"
+            text: "🟢 LOOK INTO THIS",
+            className: "decision-green"
         };
-
     }
 
-    if(score >= 45){
-
+    if (score >= 45) {
         return {
-            text:"🟡 INTERESTING",
-            className:"decision-yellow"
+            text: "🟡 INTERESTING",
+            className: "decision-yellow"
         };
-
     }
 
-    if(score >= 30){
-
+    if (score >= 30) {
         return {
-            text:"🟠 WEAK",
-            className:"decision-orange"
+            text: "🟠 WEAK",
+            className: "decision-orange"
         };
-
     }
 
     return {
-        text:"🔴 PASS",
-        className:"decision-red"
+        text: "🔴 PASS",
+        className: "decision-red"
     };
-
 }
 
 
@@ -1360,62 +1264,44 @@ function getDecision(score){
    MAIN CALCULATOR
 ================================================== */
 
-function calculate(){
+function calculate() {
 
-    const salePrice =
-        num("salePrice");
-
-    const buyCost =
-        num("buyCost");
+    const salePrice = num("salePrice");
+    const buyCost = num("buyCost");
 
     const inbound = 0;
     const packaging = 0;
     const other = 0;
 
-
-    if(
+    if (
         salePrice <= 0 ||
         buyCost <= 0
-    ){
+    ) {
 
-        setText("profit","$0.00");
-        setText("roi","0%");
-        setText("margin","0%");
-        setText("amazonFees","$0.00");
-        setText("score","0%");
-        setText("decision","ENTER PRODUCT DATA");
+        setText("profit", "$0.00");
+        setText("roi", "0%");
+        setText("margin", "0%");
+        setText("amazonFees", "$0.00");
+        setText("score", "0%");
+        setText("decision", "ENTER PRODUCT DATA");
 
         return null;
-
     }
 
-
     const referralFee =
-        estimateReferralFee(
-            salePrice
-        );
-
+        estimateReferralFee(salePrice);
 
     let fulfilmentFee;
 
-    if(currentFulfilment === "FBA"){
-
-        fulfilmentFee =
-            estimateFBA();
-
+    if (currentFulfilment === "FBA") {
+        fulfilmentFee = estimateFBA();
+    } else {
+        fulfilmentFee = estimateFBMShipping();
     }
-    else{
-
-        fulfilmentFee =
-            estimateFBMShipping();
-
-    }
-
 
     const amazonFees =
         referralFee +
         fulfilmentFee;
-
 
     const totalCost =
         buyCost +
@@ -1424,23 +1310,19 @@ function calculate(){
         packaging +
         other;
 
-
     const profit =
         salePrice -
         totalCost;
-
 
     const roi =
         totalCost > 0
             ? (profit / totalCost) * 100
             : 0;
 
-
     const margin =
         salePrice > 0
             ? (profit / salePrice) * 100
             : 0;
-
 
     const score =
         calculateScore(
@@ -1450,10 +1332,8 @@ function calculate(){
             chargeableWeight()
         );
 
-
     const decision =
         getDecision(score);
-
 
     const profitElement =
         document.getElementById("profit");
@@ -1465,7 +1345,6 @@ function calculate(){
         "negative",
         profit < 0
     );
-
 
     setText(
         "roi",
@@ -1487,7 +1366,6 @@ function calculate(){
         score + "%"
     );
 
-
     const decisionElement =
         document.getElementById("decision");
 
@@ -1497,7 +1375,6 @@ function calculate(){
     decisionElement.className =
         "decision " +
         decision.className;
-
 
     setText(
         "rSalePrice",
@@ -1529,52 +1406,43 @@ function calculate(){
         money(totalCost)
     );
 
+    const hero =
+        document.querySelector(".hero");
 
-    document
-        .querySelector(".hero")
-        .classList
-        .remove("pulse");
+    hero.classList.remove("pulse");
 
-    void document
-        .querySelector(".hero")
-        .offsetWidth;
+    void hero.offsetWidth;
 
-    document
-        .querySelector(".hero")
-        .classList
-        .add("pulse");
-
+    hero.classList.add("pulse");
 
     return {
 
-        salePrice,
-        buyCost,
+        salePrice: salePrice,
+        buyCost: buyCost,
 
-        weight:num("weight"),
+        weight: num("weight"),
 
-        length:num("length"),
-        width:num("width"),
-        height:num("height"),
+        length: num("length"),
+        width: num("width"),
+        height: num("height"),
 
-        referralFee,
-        fulfilmentFee,
-        amazonFees,
+        referralFee: referralFee,
+        fulfilmentFee: fulfilmentFee,
+        amazonFees: amazonFees,
 
-        inbound,
-        packaging,
-        other,
+        inbound: inbound,
+        packaging: packaging,
+        other: other,
 
-        totalCost,
-        profit,
-        roi,
-        margin,
+        totalCost: totalCost,
+        profit: profit,
+        roi: roi,
+        margin: margin,
 
-        score,
+        score: score,
 
-        decision:decision.text
-
+        decision: decision.text
     };
-
 }
 
 
@@ -1582,11 +1450,10 @@ function calculate(){
    GOOGLE SHEETS SAVE
 ================================================== */
 
-async function saveToGoogleSheets(){
+async function saveToGoogleSheets() {
 
     const status =
         document.getElementById("saveStatus");
-
 
     const asin =
         document
@@ -1594,19 +1461,13 @@ async function saveToGoogleSheets(){
             .value
             .trim();
 
-
     const sellerUrl =
         document
             .getElementById("sellerUrl")
             .value
             .trim();
 
-
-    /* ================================================
-       VALIDATION
-    ================================================= */
-
-    if(!asin){
+    if (!asin) {
 
         status.textContent =
             "Enter an ASIN first.";
@@ -1615,11 +1476,9 @@ async function saveToGoogleSheets(){
             "save-status error";
 
         return;
-
     }
 
-
-    if(!sellerUrl){
+    if (!sellerUrl) {
 
         status.textContent =
             "Enter the seller URL.";
@@ -1628,15 +1487,11 @@ async function saveToGoogleSheets(){
             "save-status error";
 
         return;
-
     }
 
+    const result = calculate();
 
-    const result =
-        calculate();
-
-
-    if(!result){
+    if (!result) {
 
         status.textContent =
             "Enter Amazon price and supplier cost.";
@@ -1645,9 +1500,7 @@ async function saveToGoogleSheets(){
             "save-status error";
 
         return;
-
     }
-
 
     status.textContent =
         "Saving...";
@@ -1655,39 +1508,23 @@ async function saveToGoogleSheets(){
     status.className =
         "save-status";
 
-
-    /* ================================================
-       CREATE AMAZON URL
-    ================================================= */
-
     const amazonUrl =
         "https://www.amazon.com.au/dp/" +
         encodeURIComponent(asin);
 
-
-    /* ================================================
-       CREATE HYPERLINK FORMULAS
-    ================================================= */
-
     const amazonHyperlink =
         '=HYPERLINK("' +
-        amazonUrl.replace(/"/g,'""') +
+        amazonUrl.replace(/"/g, '""') +
         '","Amazon Listing")';
-
 
     const sellerHyperlink =
         '=HYPERLINK("' +
-        sellerUrl.replace(/"/g,'""') +
+        sellerUrl.replace(/"/g, '""') +
         '","Seller Website")';
-
-
-    /* ================================================
-       DATA SENT TO GOOGLE APPS SCRIPT
-    ================================================= */
 
     const data = {
 
-        asin:asin,
+        asin: asin,
 
         salePrice:
             result.salePrice,
@@ -1765,29 +1602,21 @@ async function saveToGoogleSheets(){
 
         sellerHyperlink:
             sellerHyperlink
-
     };
 
-
-    /* ================================================
-       SEND TO GOOGLE APPS SCRIPT
-    ================================================= */
-
-    try{
+    try {
 
         await fetch(
             GOOGLE_SCRIPT_URL,
             {
-                method:"POST",
-                mode:"no-cors",
-                headers:{
-                    "Content-Type":"text/plain;charset=utf-8"
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "text/plain"
                 },
-                body:
-                    JSON.stringify(data)
+                body: JSON.stringify(data)
             }
         );
-
 
         status.textContent =
             "✓ Saved to Google Sheets";
@@ -1795,9 +1624,7 @@ async function saveToGoogleSheets(){
         status.className =
             "save-status success";
 
-
-    }
-    catch(error){
+    } catch (error) {
 
         console.error(error);
 
@@ -1806,9 +1633,7 @@ async function saveToGoogleSheets(){
 
         status.className =
             "save-status error";
-
     }
-
 }
 
 
@@ -1816,7 +1641,7 @@ async function saveToGoogleSheets(){
    RESET
 ================================================== */
 
-function resetCalculator(){
+function resetCalculator() {
 
     [
         "asin",
@@ -1835,25 +1660,69 @@ function resetCalculator(){
 
     });
 
+    setText(
+        "profit",
+        "$0.00"
+    );
 
-    setText("profit","$0.00");
-    setText("roi","0%");
-    setText("margin","0%");
-    setText("amazonFees","$0.00");
-    setText("score","0%");
-    setText("decision","ENTER PRODUCT DATA");
+    setText(
+        "roi",
+        "0%"
+    );
 
-    setText("rSalePrice","$0.00");
-    setText("rBuyCost","$0.00");
-    setText("rReferral","$0.00");
-    setText("rFulfilment","$0.00");
-    setText("rInbound","$0.00");
-    setText("rTotal","$0.00");
+    setText(
+        "margin",
+        "0%"
+    );
+
+    setText(
+        "amazonFees",
+        "$0.00"
+    );
+
+    setText(
+        "score",
+        "0%"
+    );
+
+    setText(
+        "decision",
+        "ENTER PRODUCT DATA"
+    );
+
+    setText(
+        "rSalePrice",
+        "$0.00"
+    );
+
+    setText(
+        "rBuyCost",
+        "$0.00"
+    );
+
+    setText(
+        "rReferral",
+        "$0.00"
+    );
+
+    setText(
+        "rFulfilment",
+        "$0.00"
+    );
+
+    setText(
+        "rInbound",
+        "$0.00"
+    );
+
+    setText(
+        "rTotal",
+        "$0.00"
+    );
 
     document
         .getElementById("saveStatus")
         .textContent = "";
-
 }
 
 
@@ -1878,7 +1747,6 @@ function resetCalculator(){
         );
 
 });
-
 
 calculate();
 
