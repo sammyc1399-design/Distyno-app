@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -576,6 +577,7 @@ footer{
 
 }
 </style>
+
 </head>
 
 <body>
@@ -588,12 +590,14 @@ footer{
         <div class="subtitle">Amazon AU Product Investment Analyzer</div>
     </div>
 
-    <div class="market">
-        <span class="dot"></span>
-        AMAZON AU • ESTIMATED
-    </div>
-</header>
+```
+<div class="market">
+    <span class="dot"></span>
+    AMAZON AU • ESTIMATED
+</div>
+```
 
+</header>
 
 <div class="main">
 
@@ -601,301 +605,338 @@ footer{
 
 <section class="card inputs">
 
-    <div class="title">
-        <h2>Product Details</h2>
-        <span>ONLY 5 REQUIRED</span>
-    </div>
+```
+<div class="title">
+    <h2>Product Details</h2>
+    <span>URLS + 5 REQUIRED</span>
+</div>
 
+<div class="field">
+    <label>ASIN</label>
+
+    <input
+        id="asin"
+        placeholder="B00IHXQ3OE"
+    >
+
+    <div class="hint">
+        Used to identify the product and automatically create the Amazon AU listing URL.
+    </div>
+</div>
+
+<!-- NEW SELLER URL FIELD -->
+
+<div class="field">
+    <label>Seller URL</label>
+
+    <input
+        id="sellerUrl"
+        type="url"
+        placeholder="https://example.com/product"
+    >
+
+    <div class="hint">
+        Paste the supplier or seller product URL. It will be saved as a clickable link in Google Sheets.
+    </div>
+</div>
+
+<div class="input-row">
 
     <div class="field">
-        <label>ASIN</label>
-        <input id="asin" placeholder="B00IHXQ3OE">
-        <div class="hint">
-            Used to identify the product in your saved research.
-        </div>
-    </div>
-
-
-    <div class="input-row">
-
-        <div class="field">
-            <label>Amazon Price ($)</label>
-            <input id="salePrice" type="number" step="0.01" placeholder="79.95">
-        </div>
-
-        <div class="field">
-            <label>Supplier Cost ($)</label>
-            <input id="buyCost" type="number" step="0.01" placeholder="35.00">
-        </div>
-
-    </div>
-
-
-    <div class="field">
-
-        <label>Fulfilment</label>
-
-        <div class="fulfilment">
-
-            <button
-                id="fbaButton"
-                class="active"
-                onclick="setFulfilment('FBA')"
-            >
-                FBA
-            </button>
-
-            <button
-                id="fbmButton"
-                onclick="setFulfilment('FBM')"
-            >
-                FBM
-            </button>
-
-        </div>
-
-        <div class="hint">
-            DISTYNO automatically estimates fulfilment/shipping based on weight and dimensions.
-        </div>
-
-    </div>
-
-
-    <div class="field">
-
-        <label>Weight (kg)</label>
+        <label>Amazon Price ($)</label>
 
         <input
-            id="weight"
+            id="salePrice"
             type="number"
             step="0.01"
-            placeholder="0.50"
+            placeholder="79.95"
         >
-
     </div>
-
 
     <div class="field">
+        <label>Supplier Cost ($)</label>
 
-        <label>Dimensions (cm)</label>
-
-        <div class="dimensions">
-
-            <input
-                id="length"
-                type="number"
-                step="0.1"
-                placeholder="Length"
-            >
-
-            <input
-                id="width"
-                type="number"
-                step="0.1"
-                placeholder="Width"
-            >
-
-            <input
-                id="height"
-                type="number"
-                step="0.1"
-                placeholder="Height"
-            >
-
-        </div>
-
-        <div class="hint">
-            Dimensions automatically affect the estimated fulfilment/shipping cost.
-        </div>
-
+        <input
+            id="buyCost"
+            type="number"
+            step="0.01"
+            placeholder="35.00"
+        >
     </div>
 
+</div>
 
-    <div class="actions">
+<div class="field">
+
+    <label>Fulfilment</label>
+
+    <div class="fulfilment">
 
         <button
-            class="calculate"
-            onclick="calculate()"
+            id="fbaButton"
+            class="active"
+            onclick="setFulfilment('FBA')"
         >
-            CALCULATE
+            FBA
         </button>
 
         <button
-            class="save"
-            onclick="saveToGoogleSheets()"
+            id="fbmButton"
+            onclick="setFulfilment('FBM')"
         >
-            SAVE PRODUCT
+            FBM
         </button>
 
     </div>
 
+    <div class="hint">
+        DISTYNO automatically estimates fulfilment/shipping based on weight and dimensions.
+    </div>
+
+</div>
+
+<div class="field">
+
+    <label>Weight (kg)</label>
+
+    <input
+        id="weight"
+        type="number"
+        step="0.01"
+        placeholder="0.50"
+    >
+
+</div>
+
+<div class="field">
+
+    <label>Dimensions (cm)</label>
+
+    <div class="dimensions">
+
+        <input
+            id="length"
+            type="number"
+            step="0.1"
+            placeholder="Length"
+        >
+
+        <input
+            id="width"
+            type="number"
+            step="0.1"
+            placeholder="Width"
+        >
+
+        <input
+            id="height"
+            type="number"
+            step="0.1"
+            placeholder="Height"
+        >
+
+    </div>
+
+    <div class="hint">
+        Dimensions automatically affect the estimated fulfilment/shipping cost.
+    </div>
+
+</div>
+
+<div class="actions">
 
     <button
-        class="reset"
-        onclick="resetCalculator()"
+        class="calculate"
+        onclick="calculate()"
     >
-        Reset
+        CALCULATE
     </button>
 
+    <button
+        class="save"
+        onclick="saveToGoogleSheets()"
+    >
+        SAVE PRODUCT
+    </button>
 
-    <div
-        id="saveStatus"
-        class="save-status"
-    ></div>
+</div>
+
+<button
+    class="reset"
+    onclick="resetCalculator()"
+>
+    Reset
+</button>
+
+<div
+    id="saveStatus"
+    class="save-status"
+></div>
+```
 
 </section>
-
 
 <!-- RESULTS -->
 
 <section class="card results">
 
-    <div class="title">
-        <h2>Investment Analysis</h2>
-        <span>AUTOMATIC ESTIMATE</span>
+```
+<div class="title">
+    <h2>Investment Analysis</h2>
+    <span>AUTOMATIC ESTIMATE</span>
+</div>
+
+<div class="hero">
+
+    <div class="hero-label">
+        Estimated Net Profit
     </div>
 
+    <div
+        id="profit"
+        class="profit"
+    >
+        $0.00
+    </div>
 
-    <div class="hero">
+    <div class="per-unit">
+        per unit after estimated costs
+    </div>
 
-        <div class="hero-label">
-            Estimated Net Profit
+</div>
+
+<div class="stats">
+
+    <div class="stat">
+
+        <div class="stat-label">
+            ROI
         </div>
 
         <div
-            id="profit"
-            class="profit"
-        >
-            $0.00
-        </div>
-
-        <div class="per-unit">
-            per unit after estimated costs
-        </div>
-
-    </div>
-
-
-    <div class="stats">
-
-        <div class="stat">
-            <div class="stat-label">ROI</div>
-            <div
-                id="roi"
-                class="stat-value green"
-            >
-                0%
-            </div>
-        </div>
-
-        <div class="stat">
-            <div class="stat-label">MARGIN</div>
-            <div
-                id="margin"
-                class="stat-value"
-            >
-                0%
-            </div>
-        </div>
-
-        <div class="stat">
-            <div class="stat-label">EST. AMAZON FEES</div>
-            <div
-                id="amazonFees"
-                class="stat-value"
-            >
-                $0.00
-            </div>
-        </div>
-
-    </div>
-
-
-    <div class="score">
-
-        <div class="score-label">
-            DISTYNO Opportunity Score
-        </div>
-
-        <div
-            id="score"
-            class="score-number"
+            id="roi"
+            class="stat-value green"
         >
             0%
         </div>
 
+    </div>
+
+    <div class="stat">
+
+        <div class="stat-label">
+            MARGIN
+        </div>
+
         <div
-            id="decision"
-            class="decision decision-yellow"
+            id="margin"
+            class="stat-value"
         >
-            ENTER PRODUCT DATA
+            0%
         </div>
 
     </div>
 
+    <div class="stat">
 
-    <div class="breakdown">
-
-        <div class="breakdown-header">
-            Automatic Cost Breakdown
+        <div class="stat-label">
+            EST. AMAZON FEES
         </div>
 
-        <div class="row">
-            <span>Amazon Sale Price</span>
-            <strong id="rSalePrice">$0.00</strong>
-        </div>
-
-        <div class="row">
-            <span>Supplier Cost</span>
-            <strong id="rBuyCost">$0.00</strong>
-        </div>
-
-        <div class="row">
-            <span>Estimated Referral Fee</span>
-            <strong id="rReferral">$0.00</strong>
-        </div>
-
-        <div class="row">
-            <span>Estimated Fulfilment / Shipping</span>
-            <strong id="rFulfilment">$0.00</strong>
-        </div>
-
-        <div class="row">
-            <span>Estimated Inbound</span>
-            <strong id="rInbound">$0.00</strong>
-        </div>
-
-        <div class="row">
-            <span>Estimated Total Cost</span>
-            <strong id="rTotal">$0.00</strong>
+        <div
+            id="amazonFees"
+            class="stat-value"
+        >
+            $0.00
         </div>
 
     </div>
 
+</div>
 
-    <div class="auto-box">
+<div class="score">
 
-        <strong>Automatic estimates:</strong>
-        DISTYNO estimates Amazon referral fees,
-        fulfilment/shipping and other costs using
-        the product's price, weight and dimensions.
-        These figures are intended for investment
-        screening and should be verified before
-        purchasing stock.
-
+    <div class="score-label">
+        DISTYNO Opportunity Score
     </div>
+
+    <div
+        id="score"
+        class="score-number"
+    >
+        0%
+    </div>
+
+    <div
+        id="decision"
+        class="decision decision-yellow"
+    >
+        ENTER PRODUCT DATA
+    </div>
+
+</div>
+
+<div class="breakdown">
+
+    <div class="breakdown-header">
+        Automatic Cost Breakdown
+    </div>
+
+    <div class="row">
+        <span>Amazon Sale Price</span>
+        <strong id="rSalePrice">$0.00</strong>
+    </div>
+
+    <div class="row">
+        <span>Supplier Cost</span>
+        <strong id="rBuyCost">$0.00</strong>
+    </div>
+
+    <div class="row">
+        <span>Estimated Referral Fee</span>
+        <strong id="rReferral">$0.00</strong>
+    </div>
+
+    <div class="row">
+        <span>Estimated Fulfilment / Shipping</span>
+        <strong id="rFulfilment">$0.00</strong>
+    </div>
+
+    <div class="row">
+        <span>Estimated Inbound</span>
+        <strong id="rInbound">$0.00</strong>
+    </div>
+
+    <div class="row">
+        <span>Estimated Total Cost</span>
+        <strong id="rTotal">$0.00</strong>
+    </div>
+
+</div>
+
+<div class="auto-box">
+
+    <strong>Automatic estimates:</strong>
+
+    DISTYNO estimates Amazon referral fees,
+    fulfilment/shipping and other costs using
+    the product's price, weight and dimensions.
+    These figures are intended for investment
+    screening and should be verified before
+    purchasing stock.
+
+</div>
+```
 
 </section>
 
 </div>
-
 
 <footer>
     DISTYNO • AMAZON AU PRODUCT RESEARCH • ESTIMATES FOR INVESTMENT SCREENING
 </footer>
 
 </div>
-
 
 <script>
 
@@ -991,13 +1032,6 @@ function dimensionalWeight(
         return 0;
     }
 
-    /*
-        Approximate volumetric weight.
-
-        This is intentionally an estimate for
-        product screening, not an Amazon fee quote.
-    */
-
     return (
         length *
         width *
@@ -1049,72 +1083,38 @@ function estimateFBA(){
     const height =
         num("height");
 
-
-    /*
-        Small-item estimated Amazon AU style
-        fulfilment bands.
-
-        These are deliberately estimates.
-    */
-
     let fee;
 
-
     if(weight <= 0.25){
-
         fee = 7.30;
-
     }
     else if(weight <= 0.5){
-
         fee = 7.70;
-
     }
     else if(weight <= 1){
-
         fee = 8.90;
-
     }
     else if(weight <= 1.5){
-
         fee = 9.60;
-
     }
     else if(weight <= 2){
-
         fee = 10.20;
-
     }
     else if(weight <= 3){
-
         fee = 11.00;
-
     }
     else if(weight <= 5){
-
         fee = 12.50;
-
     }
     else if(weight <= 8){
-
         fee = 15.00;
-
     }
     else if(weight <= 10){
-
         fee = 18.00;
-
     }
     else{
-
         fee = 24.00;
-
     }
-
-
-    /*
-        Oversize adjustment.
-    */
 
     const largestSide =
         Math.max(
@@ -1123,19 +1123,13 @@ function estimateFBA(){
             height
         );
 
-
     if(largestSide > 45){
-
         fee += 3;
-
     }
 
     if(largestSide > 60){
-
         fee += 5;
-
     }
-
 
     return fee;
 
@@ -1151,51 +1145,32 @@ function estimateFBMShipping(){
     const weight =
         chargeableWeight();
 
-
     let shipping;
 
-
     if(weight <= 0.25){
-
         shipping = 5.50;
-
     }
     else if(weight <= 0.5){
-
         shipping = 7.00;
-
     }
     else if(weight <= 1){
-
         shipping = 8.50;
-
     }
     else if(weight <= 2){
-
         shipping = 10.00;
-
     }
     else if(weight <= 3){
-
         shipping = 12.00;
-
     }
     else if(weight <= 5){
-
         shipping = 15.00;
-
     }
     else if(weight <= 10){
-
         shipping = 22.00;
-
     }
     else{
-
         shipping = 30.00;
-
     }
-
 
     return shipping;
 
@@ -1207,14 +1182,6 @@ function estimateFBMShipping(){
 ================================================== */
 
 function estimateReferralFee(price){
-
-    /*
-        Default screening assumption:
-        15% referral fee.
-
-        This keeps the app simple and conservative
-        for broad product research.
-    */
 
     return price * 0.15;
 
@@ -1231,16 +1198,6 @@ function calculateScore(
     margin,
     weight
 ){
-
-    /*
-        ROI is the biggest factor.
-
-        ROI:       45%
-        Profit:    30%
-        Margin:    20%
-        Size:       5%
-    */
-
 
     let roiPoints = 0;
 
@@ -1398,14 +1355,9 @@ function calculate(){
     const buyCost =
         num("buyCost");
 
-    const inbound =
-        0;
-
-    const packaging =
-        0;
-
-    const other =
-        0;
+    const inbound = 0;
+    const packaging = 0;
+    const other = 0;
 
 
     if(
@@ -1432,7 +1384,6 @@ function calculate(){
 
 
     let fulfilmentFee;
-
 
     if(currentFulfilment === "FBA"){
 
@@ -1491,10 +1442,6 @@ function calculate(){
         getDecision(score);
 
 
-    /*
-        RESULTS
-    */
-
     const profitElement =
         document.getElementById("profit");
 
@@ -1522,7 +1469,6 @@ function calculate(){
         money(amazonFees)
     );
 
-
     setText(
         "score",
         score + "%"
@@ -1539,10 +1485,6 @@ function calculate(){
         "decision " +
         decision.className;
 
-
-    /*
-        BREAKDOWN
-    */
 
     setText(
         "rSalePrice",
@@ -1574,10 +1516,6 @@ function calculate(){
         money(totalCost)
     );
 
-
-    /*
-        Animate result
-    */
 
     document
         .querySelector(".hero")
@@ -1620,8 +1558,7 @@ function calculate(){
 
         score,
 
-        decision:
-            decision.text
+        decision:decision.text
 
     };
 
@@ -1629,15 +1566,13 @@ function calculate(){
 
 
 /* ==================================================
-   GOOGLE SHEETS
+   GOOGLE SHEETS SAVE
 ================================================== */
 
 async function saveToGoogleSheets(){
 
     const status =
-        document.getElementById(
-            "saveStatus"
-        );
+        document.getElementById("saveStatus");
 
 
     const asin =
@@ -1647,10 +1582,34 @@ async function saveToGoogleSheets(){
             .trim();
 
 
+    const sellerUrl =
+        document
+            .getElementById("sellerUrl")
+            .value
+            .trim();
+
+
+    /* ================================================
+       VALIDATION
+    ================================================ */
+
     if(!asin){
 
         status.textContent =
             "Enter an ASIN first.";
+
+        status.className =
+            "save-status error";
+
+        return;
+
+    }
+
+
+    if(!sellerUrl){
+
+        status.textContent =
+            "Enter the seller URL.";
 
         status.className =
             "save-status error";
@@ -1684,9 +1643,38 @@ async function saveToGoogleSheets(){
         "save-status";
 
 
+    /* ================================================
+       CREATE AMAZON URL
+    ================================================ */
+
+    const amazonUrl =
+        "https://www.amazon.com.au/dp/" +
+        encodeURIComponent(asin);
+
+
+    /* ================================================
+       CREATE HYPERLINK FORMULAS
+    ================================================ */
+
+    const amazonHyperlink =
+        '=HYPERLINK("' +
+        amazonUrl.replace(/"/g,'""') +
+        '","Amazon Listing")';
+
+
+    const sellerHyperlink =
+        '=HYPERLINK("' +
+        sellerUrl.replace(/"/g,'""') +
+        '","Seller Website")';
+
+
+    /* ================================================
+       DATA SENT TO GOOGLE APPS SCRIPT
+    ================================================ */
+
     const data = {
 
-        asin,
+        asin:asin,
 
         salePrice:
             result.salePrice,
@@ -1753,11 +1741,34 @@ async function saveToGoogleSheets(){
         notes:
             "Automatic DISTYNO estimate",
 
-        productUrl:
-            "https://www.amazon.com.au/dp/" + asin
+
+        /* ============================================
+           RAW URLS
+        ============================================ */
+
+        amazonUrl:
+            amazonUrl,
+
+        sellerUrl:
+            sellerUrl,
+
+
+        /* ============================================
+           GOOGLE SHEETS HYPERLINK FORMULAS
+        ============================================ */
+
+        amazonHyperlink:
+            amazonHyperlink,
+
+        sellerHyperlink:
+            sellerHyperlink
 
     };
 
+
+    /* ================================================
+       SEND TO GOOGLE APPS SCRIPT
+    ================================================ */
 
     try{
 
@@ -1765,10 +1776,13 @@ async function saveToGoogleSheets(){
             GOOGLE_SCRIPT_URL,
             {
                 method:"POST",
+
                 mode:"no-cors",
+
                 headers:{
                     "Content-Type":"text/plain"
                 },
+
                 body:
                     JSON.stringify(data)
             }
@@ -1806,6 +1820,7 @@ function resetCalculator(){
 
     [
         "asin",
+        "sellerUrl",
         "salePrice",
         "buyCost",
         "weight",
@@ -1884,9 +1899,7 @@ function resetCalculator(){
 
 
     document
-        .getElementById(
-            "saveStatus"
-        )
+        .getElementById("saveStatus")
         .textContent = "";
 
 }
